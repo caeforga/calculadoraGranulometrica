@@ -5,8 +5,8 @@ import './globals.css'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Granulometría',
-  description: 'Calcular curva granulométrica de un suelo',
+  title: 'Clasificación SUCS',
+  description: 'Laboratorio de materiales de construcción, suelos y pavimentos',
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
