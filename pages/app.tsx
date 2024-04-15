@@ -181,7 +181,7 @@ export default function App() {
                                 </i>
                             </button>
                             <button
-                                onClick={() => window.open('https://www.youtube.com', '_blank')}
+                                onClick={() => window.open('https://drive.google.com/file/d/1KoR6k8-deJvQZJhuc-rX1UCuInKx_EeI/view?usp=sharing', '_blank')}
                                 className="mx-4 py-3 text-orange-500"
                                 title="Video de ayuda"
                             >
