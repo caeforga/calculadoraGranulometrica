@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { SiMicrosoftexcel } from "react-icons/si";
 import { CiVideoOn } from "react-icons/ci";
 import { IoMdExit } from "react-icons/io";
+import { FaPrint } from "react-icons/fa";
 
 import Image from "next/image";
 import { TableComponent } from "@/components/table";
@@ -14,6 +15,7 @@ import { LineChart } from "@/components/charts/line";
 
 import {useRouter} from 'next/navigation';
 import '@/app/globals.css'
+import { getCookie, deleteCookie } from 'cookies-next';
 
 
 export default function App() {
@@ -35,7 +37,6 @@ export default function App() {
         { label: "Fondo", retainedWeight: 0 },
     ]);
 
-    const [loggedIn, setLoggedIn] = useState(true);
     const [totalSample, setTotalSample] = useState(0);
     const [N4RetN200, setN4RetN200] = useState(0);
     const [passN200, setPassN200] = useState(0);
@@ -92,6 +93,10 @@ export default function App() {
         setD10(value);
     };
 
+    const handlePrint = () => {
+        window.print();
+    };
+
     useEffect(() => {
         let difference: any = window.localStorage.getItem("DIFFERENCE");
         let ts: any = window.localStorage.getItem("TOTAL_SAMPLE");
@@ -131,6 +136,13 @@ export default function App() {
         setN4RetN200(100 - (N4.acumulatedRetained || 0) - (N200.pass || 0));
     }, [granulometry]);
 
+    useEffect(() => {
+        const loggedIn = getCookie('loggedIn');
+        if (!loggedIn || loggedIn !== 'true') {
+            router.push('/');
+        }
+    }, []);
+
     return (
         <>
             <div className="min-h-screen">
@@ -139,10 +151,10 @@ export default function App() {
                 </h1>
                 <div className="px-10 pt-3">
                     <div className="z-10 w-full items-center justify-end font-mono text-sm lg:flex">
-                        <div className=" bottom-0 left-0 flex h-20 w-full items-center justify-end bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
+                        <div className=" bottom-0 left-0 flex h-20 w-full items-center justify-end from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
                             {/* atajos de repositorio y video */}
                             <button
-                                onClick={() => (localStorage.setItem('loggedIn', 'false'), setLoggedIn(false), router.push('/'))} // Cerrar sesión
+                                onClick={() => (localStorage.setItem('loggedIn', 'false'), deleteCookie('loggedIn'), router.push('/'))} // Cerrar sesión
                                 className="mx-4 py-3 text-orange-500"
                                 title="Cerrar sesión"
                             >
@@ -157,6 +169,15 @@ export default function App() {
                             >
                                 <i className="text-2xl">
                                     <SiMicrosoftexcel />
+                                </i>
+                            </button>
+                            <button
+                                onClick={handlePrint}
+                                className="mx-4 py-3 text-orange-500"
+                                title="Imprimir"
+                            >
+                                <i className="text-2xl">
+                                    <FaPrint />
                                 </i>
                             </button>
                             <button
@@ -219,7 +240,7 @@ export default function App() {
                                 />
                             </div>
                         </div>
-                        <div>
+                        <div className="w-full lg:max-w-screen-lg grid grid-cols-1 lg:grid-cols-4 gap-4">
                             <LineChart
                                 labels={granulometry
                                     .filter((g) => g.label !== "Fondo")

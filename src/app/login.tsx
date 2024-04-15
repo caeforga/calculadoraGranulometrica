@@ -2,6 +2,7 @@
 
 import { useEffect, useState, useRef } from "react";
 import { useRouter } from 'next/navigation';
+import { getCookie, setCookie } from 'cookies-next';
 
 export default function Login() {
 
@@ -17,7 +18,9 @@ export default function Login() {
       setErrorMessage('Digite la contraseña');
     } else if (password === validPassword) {
       setLoggedIn(true);
-      localStorage.setItem('loggedIn', 'true');
+      const expires = new Date();
+      expires.setHours(expires.getHours() + 6);
+      setCookie('loggedIn', 'true', { expires });
       router.push('/routes');
     } else {
       setErrorMessage('Contraseña incorrecta');
@@ -30,7 +33,7 @@ export default function Login() {
   };
 
   useEffect(() => {
-    const isLoggedIn = localStorage.getItem('loggedIn');
+    const isLoggedIn = getCookie('loggedIn');
     isLoggedIn === 'true' && setLoggedIn(true);
   }, []);
 

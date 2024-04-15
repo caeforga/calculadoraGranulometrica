@@ -1,7 +1,24 @@
 import Link from 'next/link';
 import '@/app/globals.css'
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { getCookie } from 'cookies-next';
 
 export default function Routes() {
+
+    const router = useRouter();
+    const [played, setPlayed] = useState(false);
+
+    useEffect(() => {
+        const loggedIn = getCookie('loggedIn');
+        if (!loggedIn || loggedIn !== 'true') {
+            router.push('/');
+        } else if (!played && typeof window !== 'undefined') {
+            const audio = new Audio('/intro.mp3');
+            audio.play().catch(error => console.log(error));
+            setPlayed(true);
+        }
+    }, [played]);
 
     return (
         <>
@@ -16,10 +33,18 @@ export default function Routes() {
                             Programa de ingeniería civil
                         </span>
 
-                        <Link className='w-full' href={'/app'}>
+                        <Link className='w-full' href={'https://youtu.be/iTqGQO-e2ic?si=TsQqFPIS4HGQoVgI'} target="_blank" rel="noopener noreferrer">
                             <button type="button" className="w-full text-xl text-gray-900 bg-white hover:bg-gray-100 rounded-full border border-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-800 dark:bg-white dark:border-gray-700 dark:text-gray-900 dark:hover:bg-gray-200 mb-2">
+                                <span className="w-10 h-full flex justify-start items-center">👷</span>
+                                <span className="flex-grow text-center">Presentación de laboratorios programa ingeniería civil</span>
+                                <span className="w-10 h-full flex justify-end items-center">👩‍🔬</span>
+                            </button>
+                        </Link>
+
+                        <Link className='w-full' href={'/app'}>
+                            <button type="button" className="animate-ihtAVo w-full text-xl text-gray-900 bg-white hover:bg-gray-100 rounded-full border border-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-800 dark:bg-white dark:border-gray-700 dark:text-gray-900 dark:hover:bg-gray-200 mb-2">
                                 <span className="w-10 h-full flex justify-start items-center">🧪</span>
-                                <span className="flex-grow text-center">Programa clasificación SUCS</span>
+                                <span className="flex-grow text-center">Granulometria de suelos (SUCS)</span>
                                 <span className="w-10 h-full flex justify-end items-center">🔬</span>
                             </button>
                         </Link>

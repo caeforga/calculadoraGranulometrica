@@ -3,16 +3,16 @@ import React from "react";
 import { useEffect, useState, useRef } from "react";
 import Login from "./login";
 import { useRouter } from "next/navigation";
+import { getCookie } from 'cookies-next';
 
 
 export default function Home() {
 
   const router = useRouter();
-  const inputRef = useRef<HTMLInputElement>(null);
   const [loggedIn, setLoggedIn] = useState(false);
 
   useEffect(() => {
-    const isLoggedIn = localStorage.getItem('loggedIn');
+    const isLoggedIn = getCookie('loggedIn');
     isLoggedIn === 'true' && setLoggedIn(true);
   }, []);
 
