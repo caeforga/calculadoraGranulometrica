@@ -65,6 +65,13 @@ export default function Routes() {
                             </button>
                         </Link>
 
+                        <Link className='w-full' href="https://drive.google.com/drive/folders/1J63FgEffm_GUqjim7l0ZBCFGW8Gnc5SP?usp=sharing" target="_blank" rel="noopener noreferrer">
+                            <button type="button" className="w-full text-xl text-gray-900 bg-white hover:bg-gray-100 rounded-full border border-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-800 dark:bg-white dark:border-gray-700 dark:text-gray-900 dark:hover:bg-gray-200 mb-2">
+                                <span className="w-10 h-full flex justify-start items-center">📝</span>
+                                <span className="flex-grow text-center">Información</span>
+                                <span className="w-10 h-full flex justify-end items-center">💾</span>
+                            </button>
+                        </Link>
 
                     </div>
                 </div>
