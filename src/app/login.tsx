@@ -38,7 +38,7 @@ export default function Login() {
             onClick={handleLogin}
             className="bg-lime-600 text-white px-4 py-2 rounded-md hover:bg-lime-700 transition-colors ml-auto"
             >
-            Comenzar ->
+            Comenzar -{'>'}
           </button>
           <span className="text-xs text-gray-500 mt-8">
             © 2024 Hecho por Hardy David Maya Yela
